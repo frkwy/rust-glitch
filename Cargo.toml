@@ -4,6 +4,8 @@ name = "rg"
 version = "0.0.1"
 authors = ["Aarni Koskela <akx@iki.fi>"]
 
-[dependencies.image]
-
-git = "https://github.com/PistonDevelopers/image"
+[dependencies]
+image = "*"
+rand = "*"
+path = "*"
+clippy = {version = "*", optional = true}
