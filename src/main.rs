@@ -31,49 +31,21 @@ fn main() {
     let mut rng = rand::thread_rng();
     
     for y in 0..h {
-        let mut rng1 = rand::thread_rng();
-        let a = rng1.gen_range(1, 100);
-        let color_sets: Vec<u8> = vec![1, 2, 3, 4];
-        let a1 = rng1.choose(&color_sets);
         for x in 0..w {
             if rand::random::<u16>() < 100 {
-                println!("add xoffset");
                 xoff += rng.gen_range(-1 as i32, 2);
             }
             if rand::random::<u16>() < 500 {
-                println!("add yoffset");
                 yoff += rng.gen_range(-1 as i32, 2);
             }
             if rand::random::<u16>() < 10 {
-                println!("add xoffset and yoffset");
                 xoff /= 2;
                 yoff /= 2;
             }
             
             let srcx = clamp(((x as i32) + xoff), 0, (w - 1) as i32);
             let srcy = clamp(((y as i32) + yoff), 0, (h - 1) as i32);
-            let mut srcpx = buf[(srcx as u32, srcy as u32)];
-
-            if a > 80 {
-                match a1 {
-                 Some(&1) =>  {
-                    srcpx.data[0] = 0 ;
-                    srcpx.data[1] = 255;
-                    srcpx.data[2] = 255;
-                    }
-                 Some(&2) =>  {
-                    srcpx.data[0] = 255 ;
-                    srcpx.data[1] = 0;
-                    srcpx.data[2] = 255;
-                    }
-                 Some(&3) =>  {
-                    srcpx.data[0] = 255 ;
-                    srcpx.data[1] = 255;
-                    srcpx.data[2] = 0;
-                    }
-                _ => {}
-                }
-            }
+            let srcpx = buf[(srcx as u32, srcy as u32)];
 
             buf.put_pixel(x, y, srcpx);
         }
